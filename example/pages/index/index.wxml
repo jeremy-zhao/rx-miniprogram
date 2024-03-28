@@ -1,0 +1,26 @@
+<wxs module="style">
+  module.exports = {
+    title: function (sys) {
+      var style = []
+
+      if (sys) {
+        style = style.concat(
+          'padding-top: ', sys.menuButtonRect.top - 5, 'px;',
+          'height: ', sys.menuButtonRect.height + 10, 'px;',
+        )
+      }
+
+      return style.join('')
+    }
+  }
+</wxs>
+
+<view class="nav" style="{{style.title(sys)}}">{{title}}</view>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view>
+    <text>Login Code：{{login.code}}</text>
+  </view>
+  <view class="container">
+
+  </view>
+</scroll-view>

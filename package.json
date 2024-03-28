@@ -1,0 +1,23 @@
+{
+  "name": "rx-miniprogram",
+  "version": "1.0.0",
+  "description": "一款微信小程序集中存储组件，仿照 DvaJS 的 API 定义。",
+  "homepage": "http://rx-miniprogram.softcat.cn",
+  "scripts": {
+    "build": "tsup"
+  },
+  "keywords": [
+    "微信小程序",
+    "集中存储",
+    "redux",
+    "dva"
+  ],
+  "author": "Jeremy Zhao",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.12.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3"
+  }
+}
