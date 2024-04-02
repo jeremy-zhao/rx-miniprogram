@@ -1,6 +1,6 @@
 # rx-miniprogram
 
-rx-miniprogram 是一个轻量级小程序状态管理库。
+微信小程序轻量级集中存储组件，仿照 DvaJS 的 API 定义。
 
 ## 快速上手
 
