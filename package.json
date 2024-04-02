@@ -18,12 +18,12 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "registry": "https://www.npmjs.com/package/rx-miniprogram"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/jeremy-zhao/rx-miniprogram.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "build": "tsup"
