@@ -1,3 +1,5 @@
+import { logLevel } from './src/index'
+
 interface IStore {
   sys: {
     menuButtonRect: WechatMiniprogram.ClientRect
@@ -12,5 +14,6 @@ App<IAppOption>({
   },
   onLaunch() {
     // 登录功能转移到 login.model.ts 中
+    logLevel('info')
   },
 })

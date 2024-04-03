@@ -2,15 +2,16 @@ import { log } from './log'
 import type { mapping } from './types/reducers'
 
 type PageOptions = WechatMiniprogram.Page.Options<WechatMiniprogram.Page.DataOption, WechatMiniprogram.Page.CustomOption>
-  & { _rx_pageId?: number }
+  & { __rxPageId__?: number }
 
 const pages: mapping[] = []
 
 export function updatePageData(page: PageOptions, method: string) {
-  const { _rx_pageId } = page
-  if (_rx_pageId === null || _rx_pageId === undefined) return
 
-  const mapping = pages[_rx_pageId]
+  const { __rxPageId__ } = page
+  if (__rxPageId__ === null || __rxPageId__ === undefined) return
+
+  const mapping = pages[__rxPageId__]
   if (!mapping) return
 
   const app = getApp()
@@ -23,7 +24,7 @@ export function updatePageData(page: PageOptions, method: string) {
 // 连接 Page
 export function connect(mapping: mapping, pageOptions: PageOptions) {
 
-  const _rx_pageId = pages.length
+  const __rxPageId__ = pages.length
   pages.push(mapping)
 
   const app = getApp()
@@ -36,7 +37,7 @@ export function connect(mapping: mapping, pageOptions: PageOptions) {
   const options: PageOptions = {
     ...pageOptions,
     data,
-    _rx_pageId,
+    __rxPageId__,
     onLoad(query: Record<string, string | undefined>) {
       updatePageData(this, 'onLoad')
       if (onLoad && typeof onLoad === 'function') onLoad.call(this, query)

@@ -1,20 +1,20 @@
 import { LogLevel } from "./types/logs";
 
-let level: LogLevel = 'off'
+let _level: LogLevel = 'off'
 
 /** 获取或设置 rx-miniprogram 的日志等级 */
 export function logLevel(level: LogLevel | null | undefined) {
 
   if (level) {
-    level = level
+    _level = level
   }
 
-  return level
+  return _level
 }
 
 /** 开始日志分组 */
 export function logGroup(label?: string) {
-  if (!level || level === 'off') return
+  if (!_level || _level === 'off') return
   if (!console || !console.group) return
 
   console.group(label)
@@ -22,7 +22,7 @@ export function logGroup(label?: string) {
 
 /** 结束日志分组 */
 export function logGroupEnd() {
-  if (!level || level === 'off') return
+  if (!_level || _level === 'off') return
   if (!console || !console.groupEnd) return
 
   console.groupEnd()
@@ -30,8 +30,8 @@ export function logGroupEnd() {
 
 /** 写日志 */
 export function log(...args: any[]) {
-  if (!level || level === 'off') return
-  if (!console || !console[level]) return
+  if (!_level || _level === 'off') return
+  if (!console || !console[_level]) return
 
-  console[level](...args)
+  console[_level](...args)
 }

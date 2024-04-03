@@ -1,7 +1,6 @@
 // 引用与当前页面相关的模型
 // 模型必须被引用后方能使用
 import '../../models/login.model'
-import '../../models/todo_list.model'
 
 import { connect, dispatch } from '../../../src/index'
 
@@ -13,7 +12,7 @@ connect(
   {
     // 页面加载时， rx-miniprogram 会将上面的函数返回值与自定义 data 合并
     data: {
-      title: 'TODO LIST'
+      title: 'LOGIN'
     },
 
     onLoad() {
