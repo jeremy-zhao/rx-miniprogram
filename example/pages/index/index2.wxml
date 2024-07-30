@@ -19,6 +19,6 @@
 <scroll-view class="scrollarea" scroll-y type="list">
   <view>
     <text>Login Code：{{login.code}}</text>
-    <button type="primary" bind:tap="onNext">NENT</button>
+    <button type="primary" bind:tap="onBack">BACK</button>
   </view>
 </scroll-view>
