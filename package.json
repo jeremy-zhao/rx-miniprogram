@@ -1,6 +1,6 @@
 {
   "name": "rx-miniprogram",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "微信小程序轻量级集中存储组件，仿照 DvaJS 的 API 定义。",
   "author": "Jeremy Zhao <jeremy.zhao@softcat.cn> (https://github.com/jeremy-zhao)",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git://github.com/jeremy-zhao/rx-miniprogram.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
     "build": "tsup"
