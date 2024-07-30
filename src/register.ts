@@ -1,13 +1,23 @@
 import { log, logGroup, logGroupEnd } from './log'
 import type { Reducer, reduce, effect } from './types/reducers'
 
+const models = new Map<string, Reducer<any>>()
 const reduces = new Map<string, reduce<any>>()
 const effects = new Map<string, effect>()
 
 // 注册 Model
 export function register<S extends IState>(model: Reducer<S>) {
+
+  if (models.has(model.namespace)) {
+    console.error('[Rx] register:', `namespace "${model.namespace}" 已存在，不能重复注册。`)
+    return
+  }
+
+  models.set(model.namespace, model)
+
   const app = getApp()
   app.store[model.namespace] = { ...app.store[model.namespace], ...model.state }
+
   logGroup(`[Rx] register: ${model.namespace}`)
 
   if (model.effects) {
@@ -39,6 +49,11 @@ export function register<S extends IState>(model: Reducer<S>) {
   }
 
   logGroupEnd();
+}
+
+export function getDefaultState(namespace: string) {
+  if (!models.has(namespace)) return null
+  return models.get(namespace)?.state || {}
 }
 
 export function getEffect(type: string) {

@@ -1,4 +1,5 @@
 import { log } from './log'
+import { getDefaultState } from './register'
 import type { mapping } from './types/reducers'
 
 type PageOptions = WechatMiniprogram.Page.Options<WechatMiniprogram.Page.DataOption, WechatMiniprogram.Page.CustomOption>
@@ -14,8 +15,7 @@ export function updatePageData(page: PageOptions, method: string) {
   const mapping = pages[__rxPageId__]
   if (!mapping) return
 
-  const app = getApp()
-  const mapped = mapping(app.store)
+  const mapped = mapping(getApp().store)
 
   log('[Rx] mapped:', page.route, ':', method, '=>', mapped)
   page.setData(mapped)
@@ -27,8 +27,13 @@ export function connect(mapping: mapping, pageOptions: PageOptions) {
   const __rxPageId__ = pages.length
   pages.push(mapping)
 
-  const app = getApp()
-  const mapped = mapping(app.store)
+  const defaultStore = Object.entries(getApp().store)
+    .reduce((s: IStore, [key, value]) => {
+      s[key] = getDefaultState(key) || value
+      return s
+    }, {})
+
+  const mapped = mapping(defaultStore)
   const data = { ...pageOptions.data, ...mapped }
 
   const onLoad = pageOptions.onLoad
