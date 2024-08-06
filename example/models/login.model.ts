@@ -75,6 +75,8 @@ register<LoginState>({
       catch {
         wx.showToast({ title: '登录异常' })
       }
+
+      // throw new Error('on login')
     },
 
     *baidu(_, { call, put }) {

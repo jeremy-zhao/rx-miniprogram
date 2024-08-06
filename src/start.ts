@@ -13,8 +13,6 @@ export function start(options: WechatMiniprogram.App.Options<IAppOption>) {
   options.promised.page = options.promised.page || ['onLoad', 'onShow', 'onReady', 'onHide', 'onUnload', 'onRouteDone']
 
   for (let fn of options.promised.app) {
-    if (!options[fn] || typeof options[fn] !== 'function') continue
-
     options[fn] = promisify(options[fn])
   }
 

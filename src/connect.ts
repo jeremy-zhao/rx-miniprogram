@@ -45,20 +45,24 @@ export function connect(mapping: mapping, pageOptions: PageOptions) {
     ...pageOptions,
     data,
     __rxPageId__,
+    async onLoad(query) {
+      updatePageData(this, 'onLoad')
+
+      if (pageOptions.onLoad && pageOptions.onLoad.call) {
+        await pageOptions.onLoad.call(this, query)
+      }
+    },
+    async onShow() {
+      updatePageData(this, 'onShow')
+
+      if (pageOptions.onShow && pageOptions.onShow.call) {
+        await pageOptions.onShow.call(this)
+      }
+    },
   }
 
   for (let fn of getApp()?.promised?.page || []) {
-
-    switch (fn) {
-      case 'onLoad':
-      case 'onShow':
-        options[fn] = promisify(function (this: any) { updatePageData(this, fn) }, options[fn])
-        break
-      default:
-        options[fn] = promisify(options[fn])
-        break
-    }
-
+    options[fn] = promisify(options[fn])
   }
 
   log('[Rx] connect:', options)

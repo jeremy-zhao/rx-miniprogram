@@ -2,7 +2,10 @@ import type { LogLevel } from './types/log'
 
 let _level: LogLevel = 'off'
 
-/** 获取或设置 rx-miniprogram 的日志等级 */
+/**
+ * (弃用) 获取或设置 rx-miniprogram 的日志等级
+ * @deprecated 请使用 startApp({ logLevel }) 设置日志等级
+ */
 export function logLevel(level: LogLevel | null | undefined) {
 
   if (level) {

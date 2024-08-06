@@ -16,8 +16,10 @@ connect(
     },
 
     onLoad() {
-      console.log('this page', this)
+      console.log('Page onLoad', this)
       dispatch({ type: 'login/login' })
+
+      throw new Error('index onLoad')
     },
 
     async onNext() {

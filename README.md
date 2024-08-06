@@ -1,9 +1,9 @@
-# rx-miniprogram <font size=3>v1.1.0</font>
+# rx-miniprogram
 
 微信小程序轻量级集中存储组件，仿照 DvaJS 的 API 定义。
 
 ## 最近更新
-### v1.1.0
+### v1.1.2
 #### 1. 支持在 app.ts 中直接 import 模型
 #### 2. Rx 日志打印控制
 #### 3. 小程序 App 和 Page 中生命周期回调函数对 Promise 的顺序执行支持。例如：
