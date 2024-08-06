@@ -12,6 +12,11 @@ declare global {
 }
 
 start({
+  logLevel: wx.getAccountInfoSync().miniProgram.envVersion == 'release' ? 'off' : 'debug',
+  promised: {
+    app: ['onLaunch', 'onHide'],
+    page: ['onLoad', 'onShow'],
+  },
   store: {
     sys: {
       menuButtonRect: wx.getMenuButtonBoundingClientRect()

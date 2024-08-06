@@ -73,6 +73,18 @@ npm i -S rx-miniprogram
 import { start } from 'rx-minisprogram'
 
 start({
+  // Rx 日志级别。默认值为 info
+  logLevel: wx.getAccountInfoSync().miniProgram.envVersion == 'release' ? 'off' : 'debug',
+
+  // 生命周期函数顺序执行设定。默认为所有生命周期函数
+  promised: {
+    // 指定 App 顺序执行的生命周期函数。默认为所有生命周期函数
+    app: ['onLaunch', 'onHide'],
+    // 指定 Page 顺序执行的生命周期函数。默认为所有生命周期函数
+    page: ['onLoad', 'onShow'],
+  },
+
+  // 集中存储
   store: {},
 })
 ```
