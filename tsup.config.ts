@@ -16,5 +16,4 @@ process.on('beforeExit', (code) => {
   fs.renameSync('lib/index.js', 'lib/rx-miniprogram.js')
   fs.renameSync('lib/index.js.map', 'lib/rx-miniprogram.js.map')
   fs.renameSync('lib/index.d.ts', 'lib/rx-miniprogram.d.ts')
-  fs.copyFileSync('src/types/store.d.ts', 'lib/store.d.ts')
 })

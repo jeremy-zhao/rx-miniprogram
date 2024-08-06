@@ -1,6 +1,7 @@
 import { log, logGroup, logGroupEnd } from './log'
-import { getEffect, getReduce } from './register'
+import { getStore, getEffect, getReduce } from './register'
 import { updatePageData } from './connect'
+
 import type { IAction } from './types/actions'
 import type { select } from './types/reducers'
 
@@ -22,8 +23,8 @@ export async function dispatch<A extends IAction>(action: A): Promise<void> {
     const iter = effect(action, {
       // select
       async select<S extends IState>(fn?: select<S>, ns?: string) {
-        const app = getApp()
-        const state = app.store[ns || namespace] as S
+        const store = getStore()
+        const state = store[ns || namespace] as S
 
         const re = fn && typeof fn === 'function'
           ? await fn(state)
@@ -73,13 +74,13 @@ export async function dispatch<A extends IAction>(action: A): Promise<void> {
   if (reduce) {
     log('[Rx] reduce:', type, action)
 
-    const app = getApp()
-    const oldState = app.store[namespace]
+    const store = getStore()
+    const oldState = store[namespace]
     const newState = reduce(oldState, action)
 
     if (oldState == newState) return
 
-    app.store[namespace] = newState
+    store[namespace] = newState
 
     const ps = getCurrentPages()
 

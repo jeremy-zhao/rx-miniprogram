@@ -1,4 +1,4 @@
-import { LogLevel } from "./types/logs";
+import type { LogLevel } from './types/log'
 
 let _level: LogLevel = 'off'
 

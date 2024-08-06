@@ -18,7 +18,8 @@
 <view class="nav" style="{{style.title(sys)}}">{{title}}</view>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view>
-    <text>Login Code：{{login.code}}</text>
+    <text>Login Code：</text>
+    <text>{{login.code}}</text>
     <button type="primary" bind:tap="onNext">NENT</button>
   </view>
 </scroll-view>

@@ -2,7 +2,7 @@
 // 模型必须被引用后方能使用
 import '../../models/login.model'
 
-import { connect } from '../../../src/index'
+import { connect, dispatch } from '../../../src/index'
 
 // 将当前页面连接至 rx-miniprogram
 connect(
@@ -16,7 +16,7 @@ connect(
     },
 
     onLoad() {
-      debugger
+      dispatch({ type: 'login/baidu' })
     },
 
     onBack() {

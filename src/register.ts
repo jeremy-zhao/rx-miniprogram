@@ -1,11 +1,27 @@
 import { log, logGroup, logGroupEnd } from './log'
+import type { IAppOption } from './types/store'
 import type { Reducer, reduce, effect } from './types/reducers'
 
 const models = new Map<string, Reducer<any>>()
 const reduces = new Map<string, reduce<any>>()
 const effects = new Map<string, effect>()
 
-// 注册 Model
+let _store: IStore = {}
+
+export function getStore() {
+  const app = getApp<IAppOption>()
+
+  if (app && app.store !== _store) {
+    app.store = Object.assign(app.store, _store)
+    _store = app.store
+
+    log('[Rx] app.state attached')
+  }
+
+  return _store
+}
+
+/** 注册 Model */
 export function register<S extends IState>(model: Reducer<S>) {
 
   if (models.has(model.namespace)) {
@@ -15,8 +31,8 @@ export function register<S extends IState>(model: Reducer<S>) {
 
   models.set(model.namespace, model)
 
-  const app = getApp()
-  app.store[model.namespace] = { ...app.store[model.namespace], ...model.state }
+  const store = getStore()
+  store[model.namespace] = { ...store[model.namespace], ...model.state }
 
   logGroup(`[Rx] register: ${model.namespace}`)
 
@@ -51,7 +67,7 @@ export function register<S extends IState>(model: Reducer<S>) {
   logGroupEnd();
 }
 
-export function getDefaultState(namespace: string) {
+export function getDefaultState(namespace: string): IState | null {
   if (!models.has(namespace)) return null
   return models.get(namespace)?.state || {}
 }

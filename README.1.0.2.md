@@ -1,33 +1,14 @@
-# rx-miniprogram <font size=3>v1.1.0</font>
+# rx-miniprogram <font size=3>v1.0.2</font>
 
 微信小程序轻量级集中存储组件，仿照 DvaJS 的 API 定义。
 
-## 最近更新
-### v1.1.0
-#### 1. 支持在 app.ts 中直接 import 模型
-#### 2. Rx 日志打印控制
-#### 3. 小程序 App 和 Page 中生命周期回调函数对 Promise 的顺序执行支持。例如：
-```js
-// 示例
-Page({
-  async onLoad() {
-  },
-  async onShow() {
-    // 引入组件后，onShow() 会在 onLoad() 中所有异步过程执行完毕后开始执行
-  }
-})
-```
-<br>
-
 ## 快速上手
 
-注：本文示例使用 TypeScript 开发小程序
+注：[TS] 表示如果您使用 TypeScript 开发小程序，需要执行此步骤。
 
 #### 1. 使用 npm 安装 rx-miniprogram
 
-```
-npm i -S rx-miniprogram
-```
+`npm i -S rx-miniprogram`
 
 #### 2. 点击菜单 -> 工具 -> 构建 npm
 
@@ -52,7 +33,21 @@ npm i -S rx-miniprogram
 - 再次点击菜单 -> 工具 -> 构建 npm。
 - 最后再次关闭开发者工具，并重新打开。
 
-#### 3. 删除 `typings/index.d.ts` 中的 IAppOption 定义
+#### 3. [TS] 将 `node_modules/rx-miniprogram/store.d.ts` 复制到小程序项目的 `typings/types` 目录下。
+
+[Windows]
+
+```cmd
+copy node_modules\rx-miniprogram\lib\store.d.ts typings\types\store.d.ts
+```
+
+[Linux/Mac]
+
+```bash
+cp node_modules/rx-miniprogram/lib/store.d.ts typings/types/store.d.ts
+```
+
+#### 3. [TS] 删除 `typings/index.d.ts` 中的 IAppOption 定义
 
 ```typescript
 /// <reference path="./types/index.d.ts" />
@@ -68,20 +63,20 @@ npm i -S rx-miniprogram
 
 #### 4. 修改 `app.ts` 文件
 
+[TS]
+
 ```typescript
 // app.ts
-import { start } from 'rx-minisprogram'
-
-start({
+App<IAppOption>({
   store: {},
-})
+});
 ```
+
 #### 5. 注册登录模型
 
-- 创建 `miniprogram/models/login.model.ts`
+- [TS] 创建 `miniprogram/models/login.model.ts`
 
 ```typescript
-// login.model.ts
 import { register, isAction, IAction } from "rx-miniprogram";
 import { login } from "../api/login.api";
 
@@ -159,10 +154,9 @@ register<LoginState>({
 
 #### 6. 修改首页
 
-- `pages/index/index.ts`
+- [TS] `pages/index/index.ts`
 
 ```typescript
-// index.ts
 import { connect, dispatch } from "rx-miniprogram";
 
 // 引入当前页面需要的模型
@@ -189,7 +183,6 @@ connect(
 - `pages/index/index.wxml`
 
 ```xml
-<!-- index.wxml -->
 <navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
 

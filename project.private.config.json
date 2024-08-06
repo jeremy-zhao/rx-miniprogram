@@ -3,6 +3,8 @@
   "projectname": "rx-miniprogram",
   "setting": {
     "compileHotReLoad": true,
-    "skylineRenderEnable": true
-  }
+    "skylineRenderEnable": true,
+    "urlCheck": false
+  },
+  "libVersion": "3.5.2"
 }

@@ -1,19 +1,25 @@
-import { logLevel } from './src/index'
+import { start, dispatch } from './src/index'
+import './example/models/login.model'
 
-interface IStore {
-  sys: {
-    menuButtonRect: WechatMiniprogram.ClientRect
+declare global {
+
+  interface IStore {
+    sys?: {
+      menuButtonRect: WechatMiniprogram.ClientRect
+    }
   }
+
 }
 
-App<IAppOption>({
+start({
   store: {
     sys: {
       menuButtonRect: wx.getMenuButtonBoundingClientRect()
     }
   },
-  onLaunch() {
+  async onLaunch() {
     // 登录功能转移到 login.model.ts 中
-    logLevel('info')
+    console.log('this app', this)
+    await dispatch({ type: 'login/login' })
   },
 })

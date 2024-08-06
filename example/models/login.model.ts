@@ -5,6 +5,7 @@ declare global {
   /** 定义登录状态 */
   interface LoginState extends IState {
     code?: string
+    baidu?: string
   }
 
   /** 扩展 IStore */
@@ -19,6 +20,43 @@ interface LoginSuccessAction extends IAction {
   code: string
 }
 
+interface BaiduSuccessAction extends IAction {
+  type: 'login/baiduSuccess'
+  baidu: string
+}
+
+// wx.request
+export function request(
+  option: WechatMiniprogram.RequestOption,
+  requestTaskCallback?: (requestTask: WechatMiniprogram.RequestTask) => void
+) {
+
+  return new Promise<WechatMiniprogram.RequestSuccessCallbackResult>((res, rej) => {
+
+    const requestTask = wx.request({
+      ...option,
+      success(cb) {
+        const { statusCode } = cb
+
+        if (200 <= statusCode && statusCode < 300) {
+          res(cb)
+        }
+        else {
+          rej(cb)
+        }
+      },
+      fail(cb) {
+        rej(cb)
+      }
+    })
+
+    if (requestTaskCallback && typeof requestTaskCallback === 'function') {
+      requestTaskCallback(requestTask)
+    }
+  })
+}
+
+
 // 注册登录组件
 register<LoginState>({
   namespace: 'login',
@@ -32,11 +70,18 @@ register<LoginState>({
 
       try {
         const { code } = (yield call(wx.login)) as WechatMiniprogram.LoginSuccessCallbackResult
-        put<LoginSuccessAction>({ type: 'login/loginSuccess', code })
+        yield put<LoginSuccessAction>({ type: 'login/loginSuccess', code })
       }
       catch {
         wx.showToast({ title: '登录异常' })
       }
+    },
+
+    *baidu(_, { call, put }) {
+
+      const res = (yield call(request, { url: 'http://www.baidu.com' })) as WechatMiniprogram.RequestSuccessCallbackResult
+      console.log('hi', res)
+      yield put<BaiduSuccessAction>({ type: 'login/baiduSuccess', baidu: (res.data as string).substr(0, 200) })
     }
   },
   // reduces 中定义的函数必须是纯函数
@@ -49,6 +94,11 @@ register<LoginState>({
 
       // 返回新的登录状态
       return { ...state, code }
+    },
+
+    baiduSuccess(state, action) {
+      if (!isAction<BaiduSuccessAction>('login/baiduSuccess', action)) return state
+      return { ...state, baidu: action.baidu }
     }
   },
 })

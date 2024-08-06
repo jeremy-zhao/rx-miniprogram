@@ -16,10 +16,12 @@ connect(
     },
 
     onLoad() {
+      console.log('this page', this)
       dispatch({ type: 'login/login' })
     },
 
-    onNext() {
+    async onNext() {
+      await dispatch({ type: 'login/login' })
       wx.navigateTo({ url: '/example/pages/index/index2' })
     },
 
