@@ -3,6 +3,10 @@
 微信小程序轻量级集中存储组件，仿照 DvaJS 的 API 定义。
 
 ## 最近更新
+
+### v1.1.5
+#### 1. Page 执行 connect 时，直接使用 PageOption，不再进行 mapping 操作
+
 ### v1.1.2
 #### 1. 支持在 app.ts 中直接 import 模型
 #### 2. Rx 日志打印控制

@@ -1,6 +1,6 @@
 {
   "name": "rx-miniprogram",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "description": "微信小程序轻量级集中存储组件，仿照 DvaJS 的 API 定义。",
   "author": "Jeremy Zhao <jeremy.zhao@softcat.cn> (https://github.com/jeremy-zhao)",
   "keywords": [
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "fs-extra": "^11.2.0",
-    "miniprogram-api-typings": "^3.12.2",
+    "miniprogram-api-typings": "^3.12.3",
     "tsup": "^8.0.2",
     "typescript": "^5.4.3"
   }
