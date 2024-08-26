@@ -67,11 +67,6 @@ export function register<S extends IState>(model: Reducer<S>) {
   logGroupEnd();
 }
 
-export function getDefaultState(namespace: string): IState | null {
-  if (!models.has(namespace)) return null
-  return models.get(namespace)?.state || {}
-}
-
 export function getEffect(type: string) {
   return effects.get(type)
 }
