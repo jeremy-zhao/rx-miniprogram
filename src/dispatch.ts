@@ -83,8 +83,9 @@ export async function dispatch<A extends IAction>(action: A): Promise<void> {
     store[namespace] = newState
 
     const ps = getCurrentPages()
+    const page = ps[ps.length - 1]
 
-    for (let page of ps) {
+    if (page) {
       updatePageData(page, 'onReduce')
     }
   }

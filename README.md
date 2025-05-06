@@ -4,6 +4,9 @@
 
 ## 最近更新
 
+### v1.1.6
+#### 1. dispatch 执行完毕后，仅更新当前 Page
+
 ### v1.1.5
 #### 1. Page 执行 connect 时，直接使用 PageOption，不再进行 mapping 操作
 
